@@ -41,6 +41,8 @@ public class PixelArtMaker implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		System.out.println("mouse clicked");
+		gp.clickPixel(e.getX(), e.getY());
 	}
 
 	@Override
