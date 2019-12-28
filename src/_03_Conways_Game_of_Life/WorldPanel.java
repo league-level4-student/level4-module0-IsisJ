@@ -102,12 +102,16 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 
 		for(int i=0; i<cells.length;i++){
 			for(int j=0; j<cells[i].length; j++){
-
+				livingNeighbors[i][j] = getLivingNeighbors(i, j);
 			}
 		}
 		//8. check if each cell should live or die
-	
-		
+
+		for(int i=0; i<cells.length;i++){
+			for(int j=0; j<cells[i].length; j++){
+				cells[i][j].killOrRevive(livingNeighbors[i][j]);
+			}
+		}
 		
 		
 		repaint();
@@ -118,7 +122,70 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	//   living neighbors there are of the 
 	//   cell identified by x and y
 	public int getLivingNeighbors(int x, int y){
-		return 0;
+
+		int livingNeighbors = 0;
+		for(int i=0; i<cells.length;i++){
+			for(int j=0; j<cells[i].length; j++){
+				try {
+					if (cells[i - 1][j - 1].isAlive) {
+						livingNeighbors++;
+					}
+				} catch (ArrayIndexOutOfBoundsException e) {
+					//e.printStackTrace();
+				}
+				try {
+					if (cells[i][j - 1].isAlive) {
+						livingNeighbors++;
+					}
+				} catch (ArrayIndexOutOfBoundsException e) {
+					//e.printStackTrace();
+				}
+				try {
+					if (cells[i + 1][j - 1].isAlive) {
+						livingNeighbors++;
+					}
+				}catch (ArrayIndexOutOfBoundsException e) {
+					//e.printStackTrace();
+				}
+				try {
+					if (cells[i - 1][j].isAlive) {
+						livingNeighbors++;
+					}
+				}catch (ArrayIndexOutOfBoundsException e) {
+					//e.printStackTrace();
+				}
+				try {
+					if (cells[i + 1][j].isAlive) {
+						livingNeighbors++;
+					}
+				}catch (ArrayIndexOutOfBoundsException e) {
+					//e.printStackTrace();
+				}
+				try {
+					if (cells[i - 1][j + 1].isAlive) {
+						livingNeighbors++;
+					}
+				}catch (ArrayIndexOutOfBoundsException e) {
+					//e.printStackTrace();
+				}
+				try {
+					if (cells[i][j + 1].isAlive) {
+						livingNeighbors++;
+					}
+				}catch (ArrayIndexOutOfBoundsException e) {
+					//e.printStackTrace();
+				}
+				try {
+					if (cells[i + 1][j + 1].isAlive) {
+						livingNeighbors++;
+					}
+				}catch (ArrayIndexOutOfBoundsException e) {
+					//e.printStackTrace();
+				}
+			}
+		}
+
+		return livingNeighbors;
 	}
 
 	@Override
@@ -143,8 +210,13 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//10. Use e.getX() and e.getY() to determine
 		//    which cell is clicked. Then toggle
 		//    the isAlive variable for that cell.
-		
-		
+		int mouseX = e.getX();
+		int mouseY = e.getY();
+		int cellCol;
+		int cellRow;
+
+		//divide the x and y by the size 
+
 		
 		
 		repaint();
