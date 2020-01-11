@@ -28,6 +28,18 @@ public class Cell implements Drawable{
 	 * (source: Wikipedia)
 	 * */
 	public void killOrRevive(int numNeighbors) {
+		if(this.isAlive){
+			if(numNeighbors<2){
+				isAlive = false;
+			}
+			else if (numNeighbors>3){
+				isAlive = false;
+			}
+		}else{
+			if(numNeighbors == 3){
+				isAlive = true;
+			}
+		}
 		
 	}
 	
@@ -44,8 +56,16 @@ public class Cell implements Drawable{
 	//    draws empty square if cell is dead
 	@Override
 	public void draw(Graphics g) {
-	
-		
+
+		System.out.println("draw method is being called");
+
+		if(this.isAlive){
+			g.setColor(Color.green);
+			g.fillRect( x, y,cellSize,cellSize);
+		}else{
+			g.setColor(Color.WHITE);
+			g.fillRect( x, y,cellSize,cellSize);
+		}
 		
 		
 		

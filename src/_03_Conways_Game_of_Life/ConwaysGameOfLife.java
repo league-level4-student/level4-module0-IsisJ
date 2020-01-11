@@ -29,6 +29,7 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 	private WorldPanel gamePanel;
 	
 	public static void main(String[] args) {
+		System.out.println("I'm in the main method");
 		new ConwaysGameOfLife().launchGame();
 	}
 	

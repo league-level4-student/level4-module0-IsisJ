@@ -31,7 +31,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//2. Calculate the cell size.
 		cellSize = h/cpr;
 		//3. Initialize the cell array to the appropriate size.
-		cells = new Cell[w][h];
+		cells = new Cell[cellsPerRow][cellsPerRow];
 		//3. Iterate through the array and initialize each cell.
 		//   Don't forget to consider the cell's dimensions when 
 		//   passing in the location.
@@ -85,6 +85,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		for(int i=0; i<cells.length;i++){
 			for(int j=0; j<cells[i].length; j++){
 				g.drawRect(cellSize*i, cellSize*j, cellSize, cellSize);
+				cells[i][j].draw(g);
 			}
 		}
 		
@@ -100,8 +101,8 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// . using the getLivingNeighbors method.
 		int[][] livingNeighbors = new int[cellsPerRow][cellsPerRow];
 
-		for(int i=0; i<cells.length;i++){
-			for(int j=0; j<cells[i].length; j++){
+		for(int i=0; i<livingNeighbors.length;i++){
+			for(int j=0; j<livingNeighbors[i].length; j++){
 				livingNeighbors[i][j] = getLivingNeighbors(i, j);
 			}
 		}
@@ -190,6 +191,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+
 		// TODO Auto-generated method stub
 	}
 
@@ -215,7 +217,11 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		int cellCol;
 		int cellRow;
 
-		//divide the x and y by the size 
+		cellCol = mouseX/cellSize;
+		cellRow = mouseY/cellSize;
+		cells[cellCol][cellRow].isAlive = !cells[cellCol][cellRow].isAlive;
+
+
 
 		
 		
